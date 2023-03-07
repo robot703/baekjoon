@@ -9,35 +9,38 @@ int number =6 ;
 	vector<pair<int, int>>a[7];
 	int d[7];
 
-	void dijkstra(int start) {
-		d[start] = 0;
-		priority_queue<pair<int, int>>pq;
-		pq.push(make_pair(start, 0));
+void dijkstra(int start) {
+	d[start] = 0;
+	priority_queue<pair<int, int>>pq;
+	pq.push(make_pair(start, 0));
 
-		while (!pq.empty()) {
-			int current = pq.top().first;
-			int distance = -pq.top().second;
-			pq.pop();
+	while (!pq.empty()) {
+		int current = pq.top().first;
+		int distance = -pq.top().second;
+		pq.pop();
 
-			if (d[current]<distance) continue;
-			for (int i = 0; i < a[current].size(); i++) {
-				int next = a[current][i].first;
-				int nextDistance = distance + a[current][i].second;
-				if (nextDistance < d[next]) {
-					d[next] = nextDistance;
-					pq.push(make_pair(next, -nextDistance));
-				}
+		if (d[current]<distance) continue;
+		for (int i = 0; i < a[current].size(); i++) {
+			int next = a[current][i].first;
+			int nextDistance = distance + a[current][i].second;
+			if (nextDistance < d[next]) {
+				d[next] = nextDistance;
+				pq.push(make_pair(next, -nextDistance));
 			}
-
 		}
+
+	}
 }
 
 int main(void) {
+
+	int u, v, w;
 	
 	for (int i = 1; i <= number; i++) {
 		d[i] = INF;
 	}
-	
+	cin >> u>> v>> w;
+	a[u].push_back(make_pair(v, w));
 	a[1].push_back(make_pair(2, 2));
 	a[1].push_back(make_pair(3, 5));
 	a[1].push_back(make_pair(4, 1));
@@ -64,7 +67,7 @@ int main(void) {
 	a[6].push_back(make_pair(3, 5));
 	a[6].push_back(make_pair(5, 2));
 
-	dijkstra(1);
+	dijkstra(0);
 
 	for (int i = 1; i <= number; i++) {
 		cout << d[i]<<" ";
